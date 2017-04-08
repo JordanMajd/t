@@ -12,12 +12,12 @@ char editorReadKey();
 
 /*** output ***/
 
-void editorRefreshScreen();
 void editorClearScreen();
+void editorDrawRows();
+void editorRefreshScreen();
 
 /*** input ***/
 
 void editorProcessKeypress();
-
 
 #endif

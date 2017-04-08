@@ -69,14 +69,24 @@ char editorReadKey(){
 
 /*** output ***/
 
-void editorRefreshScreen(){
-	editorClearScreen();
-}
-
 void editorClearScreen(){
 	write(STDOUT_FILENO, "\x1b[2J", 4); //clear screen
 	write(STDOUT_FILENO, "\x1b[H", 3); //cursor top left
 }
+
+void editorDrawRows(){
+	int y;
+	for(y = 0; y < 24; y++){
+		write(STDOUT_FILENO, "~\r\n", 3);
+	}
+}
+
+void editorRefreshScreen(){
+	editorClearScreen();
+	editorDrawRows();
+	write(STDOUT_FILENO, "\x1b[H", 3); //cursor top left
+}
+
 
 /*** input ***/
 
