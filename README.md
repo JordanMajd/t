@@ -9,3 +9,15 @@ Long term I have plans to extend it with Lua scripting but we will take it one s
 [snaptoken]: http://viewsourcecode.org/snaptoken/kilo/index.html
 [antirez]: http://antirez.com/news/108
 
+
+# Roadmap
+
+1. (Done) Project Setup
+1. (Done) Raw mode
+1. Input & Output
+1. Text viewer
+1. Text editor
+1. Search
+1. Syntax Highlighting
+
+After which I would like to consider adding support for Lua scripting.
