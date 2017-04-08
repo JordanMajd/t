@@ -72,7 +72,7 @@ void editorClearScreen(){
 
 void editorDrawRows(){
 	int y;
-	for(y = 0; y < &E.screenrows; y++){
+	for(y = 0; y < E.screenrows; y++){
 		write(STDOUT_FILENO, "~\r\n", 3);
 	}
 }
@@ -101,7 +101,7 @@ void editorProcessKeypress(){
 /*** init ***/
 
 void initEditor(){
-	if(getWindowSize(&E.screenrows, &E.screencols == -1){
+	if(getWindowSize(&E.screenrows, &E.screencols) == -1){
 		die("getWindowSize");
 	}
 }
