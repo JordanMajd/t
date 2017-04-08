@@ -2,7 +2,7 @@
 
 A text editor for me, written in C. 
 
-It was built by following Snaptoken's booklet [Build Your Own Text Editor][snaptoken] which was based on [antirez's kilo][antirez].
+It was built with the help of Snaptoken's booklet [Build Your Own Text Editor][snaptoken] which is based on [antirez's kilo][antirez].
 
 Long term I have plans to extend it with Lua scripting but we will take it one step at a time.
 
@@ -14,7 +14,7 @@ Long term I have plans to extend it with Lua scripting but we will take it one s
 
 1. (Done) Project Setup
 1. (Done) Raw mode
-1. Input & Output
+1. (Doing) Input & Output
 1. Text viewer
 1. Text editor
 1. Search
