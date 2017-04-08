@@ -4,6 +4,7 @@
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include "t.h"
 #include <termios.h>
 #include <unistd.h>
 
@@ -18,10 +19,7 @@ struct termios orig_termios;
 /*** terminal ***/
 
 void die(const char *s){
-
-	write(STDOUT_FILENO, "\x1b[2J", 4);
-	write(STDOUT_FILENO, "\x1b[H", 3);
-
+	editorClearScreen();
 	perror(s);
 	exit(1);
 }
@@ -72,6 +70,10 @@ char editorReadKey(){
 /*** output ***/
 
 void editorRefreshScreen(){
+	editorClearScreen();
+}
+
+void editorClearScreen(){
 	write(STDOUT_FILENO, "\x1b[2J", 4); //clear screen
 	write(STDOUT_FILENO, "\x1b[H", 3); //cursor top left
 }
@@ -84,6 +86,7 @@ void editorProcessKeypress(){
 
 	switch(c){
 		case CTRL_KEY('q'):
+			editorClearScreen();
 			exit(0);
 			break;
 	}
