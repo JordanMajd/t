@@ -7,6 +7,7 @@
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/ioctl.h>
 #include <termios.h>
 #include <unistd.h>
 
@@ -17,6 +18,8 @@
 /*** data ***/
 
 struct editorConfig{
+	int screenrows;
+	int screencols;
 	struct termios orig_termios;
 };
 
@@ -26,8 +29,9 @@ struct editorConfig E;
 
 void die(const char*);
 void disableRawMode();
-void enableRawMode();
 char editorReadKey();
+void enableRawMode();
+int getWindowSize(int*, int*);
 
 /*** output ***/
 
@@ -38,5 +42,9 @@ void editorRefreshScreen();
 /*** input ***/
 
 void editorProcessKeypress();
+
+/*** init ***/
+
+void initEditor();
 
 #endif
