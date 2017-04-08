@@ -31,6 +31,7 @@ void die(const char*);
 void disableRawMode();
 char editorReadKey();
 void enableRawMode();
+int getCursorPosition(int*, int*);
 int getWindowSize(int*, int*);
 
 /*** output ***/
