@@ -23,6 +23,11 @@ struct editorConfig{
 	struct termios orig_termios;
 };
 
+struct abuf{
+	char *b;
+	int len;
+};
+
 struct editorConfig E;
 
 /*** terminal ***/
