@@ -1,6 +1,7 @@
 #ifndef ABUF_H
 #define ABUF_H
 
+#include <stdlib.h>
 #include <string.h>
 
 #define ABUF_INIT { NULL, 0}
