@@ -37,8 +37,8 @@ int getWindowSize(int*, int*);
 
 /*** output ***/
 
-void editorClearScreen();
-void editorDrawRows();
+void editorClearScreen(struct abuf*);
+void editorDrawRows(struct abuf*);
 void editorRefreshScreen();
 
 /*** input ***/

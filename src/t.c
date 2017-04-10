@@ -3,7 +3,9 @@
 /*** terminal ***/
 
 void die(const char *s){
-	editorClearScreen();
+	//clear screen, reset cursor
+	write(STDOUT_FILENO, "\x1b[2J", 4);
+	write(STDOUT_FILENO, "\x1b[H", 3);
 	perror(s);
 	exit(1);
 }
@@ -106,26 +108,37 @@ int getWindowSize(int *rows, int *cols){
 
 /*** output ***/
 
-void editorClearScreen(){
-	write(STDOUT_FILENO, "\x1b[2J", 4); //clear screen
-	write(STDOUT_FILENO, "\x1b[H", 3); //cursor top left
+void editorClearScreen(struct abuf *ab){
+	abAppend(ab, "\x1b[2J", 4); //clear screen
+	abAppend(ab, "\x1b[H", 3); //cursor top left
 }
 
-void editorDrawRows(){
+void editorDrawRows(struct abuf *ab){
+
 	int y;
 	for(y = 0; y < E.screenrows; y++){
-		write(STDOUT_FILENO, "~", 1);
+		abAppend(ab, "~", 1);
 
 		if(y < E.screenrows - 1){
-			write(STDOUT_FILENO, "\r\n", 2);
+			abAppend(ab, "\r\n", 2);
 		} 
 	}
 }
 
 void editorRefreshScreen(){
-	editorClearScreen();
-	editorDrawRows();
-	write(STDOUT_FILENO, "\x1b[H", 3); //cursor top left
+
+	struct abuf ab = ABUF_INIT;
+
+	abAppend(&ab, "\x1b[?25l", 6); //turn off cursor
+
+	editorClearScreen(&ab);
+	editorDrawRows(&ab);
+
+	abAppend(&ab, "\x1b[H", 3); //cursor top left
+	abAppend(&ab, "\x1b[?25h", 6); //turn on cursor	
+
+	write(STDOUT_FILENO, ab.b, ab.len);
+	abFree(&ab);
 }
 
 
@@ -137,7 +150,9 @@ void editorProcessKeypress(){
 
 	switch(c){
 		case CTRL_KEY('q'):
-			editorClearScreen();
+			//clear screen, cursor top left
+			write(STDOUT_FILENO, "\x1b[2J", 4);
+			write(STDOUT_FILENO, "\x1b[H", 3);
 			exit(0);
 			break;
 	}
