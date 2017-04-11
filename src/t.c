@@ -183,10 +183,10 @@ void editorMoveCursor(char key){
 		case 'l':
 			E.cx++;
 			break;
-		case 'k';
+		case 'k':
 			E.cy--;
 			break;
-		case 'j';
+		case 'j':
 			E.cy++;
 			break;
 	}
