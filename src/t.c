@@ -118,7 +118,7 @@ void editorDrawRows(struct abuf *ab){
 	int y;
 	for(y = 0; y < E.screenrows; y++){
 		abAppend(ab, "~", 1);
-
+		abAppend(ab, "\x1b[K", 3);//erase right of cursor
 		if(y < E.screenrows - 1){
 			abAppend(ab, "\r\n", 2);
 		} 
@@ -130,8 +130,8 @@ void editorRefreshScreen(){
 	struct abuf ab = ABUF_INIT;
 
 	abAppend(&ab, "\x1b[?25l", 6); //turn off cursor
+	abAppend(&ab, "\x1b[H", 3); //cursor top left
 
-	editorClearScreen(&ab);
 	editorDrawRows(&ab);
 
 	abAppend(&ab, "\x1b[H", 3); //cursor top left
