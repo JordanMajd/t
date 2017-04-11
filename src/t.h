@@ -20,6 +20,8 @@
 /*** data ***/
 
 struct editorConfig{
+	int cx;
+	int cy;
 	int screenrows;
 	int screencols;
 	struct termios orig_termios;
