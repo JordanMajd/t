@@ -27,7 +27,28 @@ char editorReadKey(){
 		}
 	}
 
-	return c;
+	//arrow keys
+	if(c == '\x1b'){
+		char seq[3];
+		
+		//if either read times out assume user pressed escape
+		if(read(STDIN_FILENO, &seq[0], 1) != 1 || read(STDIN_FILENO, &seq[1], 1) != 1){
+			return '\x1b';
+		}
+
+		if(seq[0] == '['){
+			switch(seq[1]){
+				case 'A': return ARROW_UP;
+				case 'B': return ARROW_DOWN;
+				case 'C': return ARROW_RIGHT;
+				case 'D': return ARROW_LEFT;
+			}
+		}
+
+		return '\x1b';
+	}else{
+		return c;
+	}
 }
 
 void enableRawMode(){
@@ -177,16 +198,16 @@ void editorRefreshScreen(){
 void editorMoveCursor(char key){
 	
 	switch(key){
-		case 'h':
+		case ARROW_LEFT:
 			E.cx--;
 			break;
-		case 'l':
+		case ARROW_RIGHT:
 			E.cx++;
 			break;
-		case 'k':
+		case ARROW_UP:
 			E.cy--;
 			break;
-		case 'j':
+		case ARROW_DOWN:
 			E.cy++;
 			break;
 	}
@@ -203,10 +224,10 @@ void editorProcessKeypress(){
 			write(STDOUT_FILENO, "\x1b[H", 3);
 			exit(0);
 			break;
-		case 'h':
-		case 'l':
-		case 'k':
-		case 'j':
+		case ARROW_UP:
+		case ARROW_DOWN:
+		case ARROW_LEFT:
+		case ARROW_RIGHT:
 			editorMoveCursor(c);
 			break;
 	}
