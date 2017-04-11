@@ -19,11 +19,12 @@
 
 /*** data ***/
 
+//enums auto increment
 enum editorKey{
-	ARROW_LEFT = 'h',
-	ARROW_RIGHT = 'l',
-	ARROW_UP = 'k',
-	ARROW_DOWN = 'j'
+	ARROW_LEFT = 1000,
+	ARROW_RIGHT,
+	ARROW_UP,
+	ARROW_DOWN
 };
 
 struct editorConfig{
@@ -40,7 +41,7 @@ struct editorConfig E;
 
 void die(const char*);
 void disableRawMode();
-char editorReadKey();
+int editorReadKey();
 void enableRawMode();
 int getCursorPosition(int*, int*);
 int getWindowSize(int*, int*);
@@ -53,7 +54,7 @@ void editorRefreshScreen();
 
 /*** input ***/
 
-void editorMoveCursor(char);
+void editorMoveCursor(int);
 void editorProcessKeypress();
 
 /*** init ***/

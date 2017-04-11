@@ -16,7 +16,7 @@ void disableRawMode(){
 	}
 }
 
-char editorReadKey(){
+int editorReadKey(){
 
 	int nread;
 	char c;
@@ -195,7 +195,7 @@ void editorRefreshScreen(){
 
 /*** input ***/
 
-void editorMoveCursor(char key){
+void editorMoveCursor(int key){
 	
 	switch(key){
 		case ARROW_LEFT:
@@ -215,7 +215,7 @@ void editorMoveCursor(char key){
 
 void editorProcessKeypress(){
 
-	char c = editorReadKey();
+	int c = editorReadKey();
 
 	switch(c){
 		case CTRL_KEY('q'):
