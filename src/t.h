@@ -12,9 +12,10 @@
 #include <termios.h>
 #include <unistd.h>
 
-/*** macros ***/
+/*** macros & defs ***/
 
 #define CTRL_KEY(k) ((k) & 0x1f)
+#define T_VERSION "0.0.1"
 
 /*** data ***/
 
