@@ -46,6 +46,7 @@ void editorRefreshScreen();
 
 /*** input ***/
 
+void editorMoveCursor(char);
 void editorProcessKeypress();
 
 /*** init ***/
