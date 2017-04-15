@@ -12,11 +12,13 @@
 #include <ctype.h>
 #include <errno.h>
 #include <stdio.h>
+#include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
 #include <sys/types.h>
 #include <termios.h>
+#include <time.h>
 #include <unistd.h>
 
 /*** macros & defs ***/
@@ -57,6 +59,9 @@ struct editorConfig{
 	int screencols;
 	int numrows;
 	erow *row;
+	char *filename;
+	char statusmsg[80];
+	time_t statusmsg_time;
 	struct termios orig_termios;
 };
 
@@ -85,8 +90,11 @@ void editorOpen(char*);
 
 void editorClearScreen(struct abuf*);
 void editorDrawRows(struct abuf*);
+void editorDrawMessageBar(struct abuf*);
+void editorDrawStatusBar(struct abuf*);
 void editorRefreshScreen();
 void editorScroll();
+void editorSetStatusMessage(const char*, ...);
 
 /*** input ***/
 
