@@ -182,6 +182,19 @@ int editorRowCxToRx(erow *row, int cx){
 	return rx;
 }
 
+void editorRowInsertChar(erow *row, int at, int c) {
+	if (at < 0 || at > row->size) {
+		at = row->size;
+	}
+	// add byte for new char and null byte
+	row->chars = realloc(row->chars, row->size + 2);
+	//move remaining chars to make room for new one
+	memmove(&row->chars[at + 1], &row->chars[at], row->size - at + 1);
+	row->size++;
+	row->chars[at] = c;
+	editorUpdateRow(row);
+}
+
 void editorUpdateRow(erow *row){
 
 	int tabs = 0;
@@ -210,6 +223,19 @@ void editorUpdateRow(erow *row){
 	}
 	row->render[idx] = '\0';
 	row->rsize = idx;
+}
+
+/*** editor ops ***/
+
+void editorInsertChar(int c) {
+
+	//add new row if at bottom
+	if (E.cy == E.numrows) {
+		editorAppendRow("", 0);
+	}
+
+	editorRowInsertChar(&E.row[E.cy], E.cx, c);
+	E.cx++;
 }
 
 /*** file i/0 ***/
@@ -485,6 +511,10 @@ void editorProcessKeypress(){
 		case ARROW_LEFT:
 		case ARROW_RIGHT:
 			editorMoveCursor(c);
+			break;
+		
+		default:
+			editorInsertChar(c);
 			break;
 	}
 }

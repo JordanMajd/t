@@ -80,7 +80,12 @@ int getWindowSize(int*, int*);
 
 void editorAppendRow(char*, size_t);
 int editorRowCXToRX(erow*, int);
+void editorRowInsertChar(erow*, int, int);
 void editorUpdateRow(erow*);
+
+/*** editor ops ***/
+
+void editorInsertChar(int);
 
 /*** file i/o ***/
 
