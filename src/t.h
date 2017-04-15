@@ -32,11 +32,18 @@ enum editorKey{
 	PAGE_DOWN
 };
 
+typedef struct erow{
+	int size;
+	char * chars;
+} erow;
+
 struct editorConfig{
 	int cx;
 	int cy;
 	int screenrows;
 	int screencols;
+	int numrows;
+	erow row;
 	struct termios orig_termios;
 };
 
@@ -50,6 +57,10 @@ int editorReadKey();
 void enableRawMode();
 int getCursorPosition(int*, int*);
 int getWindowSize(int*, int*);
+
+/*** file i/o ***/
+
+void editorOpen();
 
 /*** output ***/
 

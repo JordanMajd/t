@@ -151,6 +151,21 @@ int getWindowSize(int *rows, int *cols){
 	}
 }
 
+/*** file i/0 ***/
+
+void editorOpen(){
+	char *line = "Hello, world!";
+	ssize_t linelen = 13;
+
+	E.row.size = linelen;
+	E.row.chars = malloc(linelen + 1);
+	memcpy(E.row.chars, line, linelen);
+
+	E.row.chars[linelen] = '\0';
+	E.numrows = 1;
+}
+
+
 /*** output ***/
 
 void editorClearScreen(struct abuf *ab){
@@ -162,30 +177,36 @@ void editorDrawRows(struct abuf *ab){
 
 	int y;
 	for(y = 0; y < E.screenrows; y++){
+		if(y >= E.numrows){
+			if(y == E.screenrows / 3){
 
-		if(y == E.screenrows / 3){
+				char welcome[80];
+				int welcomelen = snprintf(welcome, sizeof(welcome), "T editor -- version %s", T_VERSION);
 
-			char welcome[80];
-			int welcomelen = snprintf(welcome, sizeof(welcome), "T editor -- version %s", T_VERSION);
+				if(welcomelen > E.screencols){
+					welcomelen = E.screencols;
+				}
 
-			if(welcomelen > E.screencols){
-				welcomelen = E.screencols;
-			}
+				int padding = (E.screencols - welcomelen) / 2;
+				if(padding){
+					abAppend(ab, "~", 1);
+					padding--;
+				}
+				while(padding--){
+					abAppend(ab, " ", 1);
+				}
 
-			int padding = (E.screencols - welcomelen) / 2;
-			if(padding){
+				abAppend(ab, welcome, welcomelen);
+
+			}else{	
 				abAppend(ab, "~", 1);
-				padding--;
 			}
-			while(padding--){
-				abAppend(ab, " ", 1);
-			}
-
-			abAppend(ab, welcome, welcomelen);
-
 		}else{
-
-			abAppend(ab, "~", 1);
+			int len = E.row.size;
+			if(len > E.screencols){
+				len = E.screencols;
+			}
+			abAppend(ab, E.row.chars, len);
 		}
 
 		abAppend(ab, "\x1b[K", 3);//erase right of cursor
@@ -290,6 +311,7 @@ void initEditor(){
 
 	E.cx = 0;
 	E.cy = 0;
+	E.numrows = 0;
 
 	if(getWindowSize(&E.screenrows, &E.screencols) == -1){
 		die("getWindowSize");
@@ -299,6 +321,7 @@ void initEditor(){
 int main() {
 	enableRawMode();
 	initEditor();
+	editorOpen();
 
 	while(1){
 		editorRefreshScreen();
