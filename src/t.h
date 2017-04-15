@@ -23,6 +23,7 @@
 
 #define CTRL_KEY(k) ((k) & 0x1f)
 #define T_VERSION "0.0.1"
+#define T_TAB_STOP 8
 
 /*** data ***/
 
@@ -41,7 +42,9 @@ enum editorKey{
 
 typedef struct erow{
 	int size;
-	char * chars;
+	int rsize;
+	char *chars;
+	char *render;
 } erow;
 
 struct editorConfig{
@@ -70,6 +73,7 @@ int getWindowSize(int*, int*);
 /*** row ops ***/
 
 void editorAppendRow(char*, size_t);
+void editorUpdateRow(erow*);
 
 /*** file i/o ***/
 
