@@ -178,7 +178,6 @@ void editorOpen(char *filename){
 	size_t linecap = 0;
 	ssize_t linelen;
 
-	linelen = getline(&line, &linecap, fp);
 	while((linelen = getline(&line, &linecap, fp)) != -1) {
 		
 		while(linelen > 0 && (line[linelen - 1] == '\n' || line[linelen - 1] == '\r')){
@@ -208,7 +207,7 @@ void editorDrawRows(struct abuf *ab){
 		int filerow = y + E.rowoff;
 
 		if(filerow >= E.numrows){
-			if(E.numrows ==0 && y == E.screenrows / 3){
+			if(E.numrows == 0 && y == E.screenrows / 3){
 
 				char welcome[80];
 				int welcomelen = snprintf(welcome, sizeof(welcome), "T editor -- version %s", T_VERSION);
