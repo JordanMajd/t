@@ -15,8 +15,8 @@ Long term I have plans to extend it with Lua scripting but we will take it one s
 1. (DONE) Input & output
 1. (DONE) Text viewer
 1. (DONE) Text editor
-1. (0%) Search
-1. Syntax highlighting
+1. (DONE) Search
+1. (0%) Syntax highlighting
 
 After which I would like to consider adding support for Lua scripting.
 
