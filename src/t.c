@@ -231,10 +231,12 @@ void editorDrawRows(struct abuf *ab){
 				abAppend(ab, "~", 1);
 			}
 		}else{
+
 			int len = E.row[filerow].size;
 			if(len > E.screencols){
 				len = E.screencols;
 			}
+
 			abAppend(ab, E.row[filerow].chars, len);
 		}
 
@@ -298,10 +300,8 @@ void editorMoveCursor(int key){
 			}
 			break;
 		case ARROW_DOWN:
-			if(E.cy != E.screenrows -1){
-				if(E.cy < E.numrows){
-					E.cy++;
-				}
+			if(E.cy < E.numrows){
+				E.cy++;
 			}
 			break;
 	}
