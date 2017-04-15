@@ -117,6 +117,7 @@ void editorSetStatusMessage(const char*, ...);
 
 void editorMoveCursor(int);
 void editorProcessKeypress();
+char *editorPrompt(char*);
 
 /*** init ***/
 
