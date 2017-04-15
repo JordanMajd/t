@@ -83,6 +83,9 @@ int getWindowSize(int*, int*);
 /*** row ops ***/
 
 void editorAppendRow(char*, size_t);
+void editorDelRow(int);
+void editorFreeRow(erow*);
+void editorRowAppendString(erow*, char*, size_t);
 int editorRowCXToRX(erow*, int);
 void editorRowDelChar(erow *, int);
 void editorRowInsertChar(erow*, int, int);
