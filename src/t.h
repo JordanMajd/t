@@ -47,6 +47,7 @@ typedef struct erow{
 struct editorConfig{
 	int cx;
 	int cy;
+	int rowoff;
 	int screenrows;
 	int screencols;
 	int numrows;
@@ -78,6 +79,7 @@ void editorOpen(char*);
 void editorClearScreen(struct abuf*);
 void editorDrawRows(struct abuf*);
 void editorRefreshScreen();
+void editorScroll();
 
 /*** input ***/
 
