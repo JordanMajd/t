@@ -50,7 +50,7 @@ struct editorConfig{
 	int screenrows;
 	int screencols;
 	int numrows;
-	erow row;
+	erow *row;
 	struct termios orig_termios;
 };
 
@@ -64,6 +64,10 @@ int editorReadKey();
 void enableRawMode();
 int getCursorPosition(int*, int*);
 int getWindowSize(int*, int*);
+
+/*** row ops ***/
+
+void editorAppendRow(char*, size_t);
 
 /*** file i/o ***/
 
