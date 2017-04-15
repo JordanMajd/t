@@ -123,7 +123,7 @@ void editorSetStatusMessage(const char*, ...);
 
 void editorMoveCursor(int);
 void editorProcessKeypress();
-char *editorPrompt(char*);
+char *editorPrompt(char*, void (*)(char*, int));
 
 /*** init ***/
 
