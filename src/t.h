@@ -11,6 +11,7 @@
 #include "abuf.h"
 #include <ctype.h>
 #include <errno.h>
+#include <fcntl.h>
 #include <stdio.h>
 #include <stdarg.h>
 #include <stdlib.h>
@@ -91,6 +92,8 @@ void editorInsertChar(int);
 /*** file i/o ***/
 
 void editorOpen(char*);
+void editorSave();
+char *editorRowsToString(int*);
 
 /*** output ***/
 
