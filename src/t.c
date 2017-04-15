@@ -44,7 +44,7 @@ int editorReadKey(){
 				if(seq[2] == '~'){
 					switch(seq[1]){
 						case '1': return HOME_KEY;
-						case '2': return DEL_KEY;
+						case '3': return DEL_KEY; 
 						case '4': return END_KEY;
 						case '5': return PAGE_UP;
 						case '6': return PAGE_DOWN;
@@ -184,6 +184,19 @@ int editorRowCxToRx(erow *row, int cx){
 	return rx;
 }
 
+void editorRowDelChar(erow *row, int at) {
+
+	if (at < 0 || at >= row->size){
+		return;
+	}
+
+	//move all chars after at to at including null byte
+	memmove(&row->chars[at], &row->chars[at + 1], row->size - at);
+	row->size--;
+	editorUpdateRow(row);
+	E.dirty++;
+}
+
 void editorRowInsertChar(erow *row, int at, int c) {
 	if (at < 0 || at > row->size) {
 		at = row->size;
@@ -229,6 +242,19 @@ void editorUpdateRow(erow *row){
 }
 
 /*** editor ops ***/
+
+void editorDelChar() {
+	
+	if (E.cy == E.numrows) {
+		return;
+	}
+
+	erow *row = &E.row[E.cy];
+	if (E.cx > 0) {
+		editorRowDelChar(row, E.cx - 1);
+		E.cx--;
+	}
+}
 
 void editorInsertChar(int c) {
 
@@ -519,6 +545,8 @@ void editorMoveCursor(int key){
 }
 
 void editorProcessKeypress(){
+	
+	static int quit_times = T_QUIT_TIMES;
 
 	int c = editorReadKey();
 
@@ -528,6 +556,10 @@ void editorProcessKeypress(){
 			break;
 
 		case CTRL_KEY('q'):
+			if(E.dirty && quit_times > 0) {
+				editorSetStatusMessage("WARNING!!! File has unsaved changes. Press Ctrl-Q %d more times to quit.", quit_times--);
+				return;
+			}
 			//clear screen, cursor top left
 			write(STDOUT_FILENO, "\x1b[2J", 4);
 			write(STDOUT_FILENO, "\x1b[H", 3);
@@ -551,7 +583,10 @@ void editorProcessKeypress(){
 		case BACKSPACE:
 		case CTRL_KEY('h'):
 		case DEL_KEY:
-			/* TODO */
+			if (c == DEL_KEY){
+				editorMoveCursor(ARROW_RIGHT);
+			}
+			editorDelChar();
 			break;
 	
 		case PAGE_UP:
@@ -588,6 +623,8 @@ void editorProcessKeypress(){
 			editorInsertChar(c);
 			break;
 	}
+
+	quit_times = T_QUIT_TIMES;
 }
 
 /*** init ***/

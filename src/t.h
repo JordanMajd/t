@@ -27,6 +27,7 @@
 #define CTRL_KEY(k) ((k) & 0x1f)
 #define T_VERSION "0.0.1"
 #define T_TAB_STOP 8
+#define T_QUIT_TIMES 3
 
 /*** data ***/
 
@@ -83,11 +84,13 @@ int getWindowSize(int*, int*);
 
 void editorAppendRow(char*, size_t);
 int editorRowCXToRX(erow*, int);
+void editorRowDelChar(erow *, int);
 void editorRowInsertChar(erow*, int, int);
 void editorUpdateRow(erow*);
 
 /*** editor ops ***/
 
+void editorDelChar();
 void editorInsertChar(int);
 
 /*** file i/o ***/
