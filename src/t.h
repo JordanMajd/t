@@ -50,6 +50,7 @@ typedef struct erow{
 struct editorConfig{
 	int cx;
 	int cy;
+	int rx;
 	int rowoff;
 	int coloff;
 	int screenrows;
@@ -73,6 +74,7 @@ int getWindowSize(int*, int*);
 /*** row ops ***/
 
 void editorAppendRow(char*, size_t);
+int editorRowCXToRX(erow*, int);
 void editorUpdateRow(erow*);
 
 /*** file i/o ***/
