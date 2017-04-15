@@ -13,8 +13,8 @@ Long term I have plans to extend it with Lua scripting but we will take it one s
 1. (Done) Project setup
 1. (Done) Raw mode
 1. (DONE) Input & output
-1. (20%) Text viewer
-1. Text editor
+1. (DONE) Text viewer
+1. (0%) Text editor
 1. Search
 1. Syntax highlighting
 
