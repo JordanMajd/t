@@ -86,7 +86,8 @@ void editorDelRow(int);
 void editorFreeRow(erow*);
 void editorInsertRow(int, char*, size_t);
 void editorRowAppendString(erow*, char*, size_t);
-int editorRowCXToRX(erow*, int);
+int editorRowCxToRx(erow*, int);
+int editorRowRxToCx(erow*, int);
 void editorRowDelChar(erow *, int);
 void editorRowInsertChar(erow*, int, int);
 void editorUpdateRow(erow*);
@@ -102,6 +103,11 @@ void editorInsertNewline();
 void editorOpen(char*);
 void editorSave();
 char *editorRowsToString(int*);
+
+/*** find ***/
+
+void editorFind();
+void editorFindCallback(char*, int);
 
 /*** output ***/
 
