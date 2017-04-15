@@ -26,8 +26,11 @@ CTRL-F: Find
 
 - Open, Save, Save As
 - Incremental Search
+- Syntax Highlighting(TODO)
 
 # Roadmap
+
+Core Functionality:
 
 1. (Done) Project setup
 1. (Done) Raw mode
@@ -36,7 +39,13 @@ CTRL-F: Find
 1. (DONE) Text editor
 1. (DONE) Search
 1. (0%) Syntax highlighting
+
+Stretch Goals:
+
+1. Custom Save-As
+1. Custom Open file
 1. Lua scripting
+1. Multiple buffers
 
 [snaptoken]: http://viewsourcecode.org/snaptoken/kilo/index.html
 [antirez]: http://antirez.com/news/108
