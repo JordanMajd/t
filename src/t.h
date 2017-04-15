@@ -25,7 +25,7 @@
 /*** macros & defs ***/
 
 #define CTRL_KEY(k) ((k) & 0x1f)
-#define T_VERSION "0.0.1"
+#define T_VERSION "0.0.3"
 #define T_TAB_STOP 8
 #define T_QUIT_TIMES 3
 
