@@ -151,6 +151,27 @@ int getWindowSize(int *rows, int *cols){
 	}
 }
 
+/*** syntax highlighting ***/
+
+void editorUpdateSyntax(erow *row) {
+	row->hl = realloc(row->hl, row->rsize);
+	memset(row->hl, HL_NORMAL, row->rsize);
+
+	int i;
+	for (i = 0; i < row->rsize; i++){
+		if(isdigit(row->render[i])){
+			row->hl[i] = HL_NUMBER;
+		}
+	}
+}
+
+int editorSyntaxToColor(int hl) {
+	switch(hl){
+		case HL_NUMBER: return 31;
+		default: return 37;
+	}
+}
+
 /*** row ops ***/
 
 void editorDelRow(int at) {
@@ -292,6 +313,8 @@ void editorUpdateRow(erow *row){
 	}
 	row->render[idx] = '\0';
 	row->rsize = idx;
+
+	editorUpdateSyntax(row);
 }
 
 /*** editor ops ***/
@@ -545,16 +568,22 @@ void editorDrawRows(struct abuf *ab){
 			}
 			
 			char *c = &E.row[filerow].render[E.coloff];
+			unsigned char *hl = &E.row[filerow].hl[E.coloff];
+
 			int j;
 			for(j = 0; j < len; j++){
-				if(isdigit(c[j])){
-					abAppend(ab, "\x1b[31m", 5);
-					abAppend(ab, &c[j], 1);
+				if(hl[j] == HL_NORMAL) {
 					abAppend(ab, "\x1b[39m", 5);
+					abAppend(ab, &c[j], 1);
 				} else {
+					int color = editorSyntaxToColor(hl[j]);
+					char buf[16];
+					int clen = snprintf(buf, sizeof(buf), "\x1b[%dm", color);
+					abAppend(ab, buf, clen);
 					abAppend(ab, &c[j], 1);
 				}
 			}
+			abAppend(ab, "\x1b[39m", 5);
 		}
 
 		abAppend(ab, "\x1b[K", 3); //erase right of cursor
