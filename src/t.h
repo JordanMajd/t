@@ -47,7 +47,8 @@ enum editorKey{
 
 enum editorHighlight {
 	HL_NORMAL = 0,
-	HL_NUMBER
+	HL_NUMBER,
+	HL_MATCH
 };
 
 typedef struct erow{
