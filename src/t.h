@@ -38,6 +38,8 @@ struct editorSyntax {
 	char **filematch;
 	char **keywords;
 	char *singleline_comment_start;
+	char *multiline_comment_start;
+	char *multiline_comment_end;
 	int flags;
 };
 
@@ -67,11 +69,13 @@ enum editorHighlight {
 };
 
 typedef struct erow{
+	int idx;
 	int size;
 	int rsize;
 	char *chars;
 	char *render;
 	unsigned char *hl;
+	int hl_open_comment;
 } erow;
 
 struct editorConfig{
@@ -110,7 +114,7 @@ struct editorSyntax HLDB[] = {
 		"c",
 		C_HL_extensions,
 		C_HL_keywords,
-		"//",
+		"//", "/*", "*/",
 		HL_HIGHLIGHT_NUMBERS | HL_HIGHLIGHT_STRINGS
 	},
 };
