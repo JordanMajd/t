@@ -28,8 +28,15 @@
 #define T_VERSION "0.0.3"
 #define T_TAB_STOP 8
 #define T_QUIT_TIMES 3
+#define HL_HIGHLIGHT_NUMBERS (1<<0)
 
 /*** data ***/
+
+struct editorSyntax {
+	char *filetype;
+	char **filematch;
+	int flags;
+};
 
 //enums auto increment
 enum editorKey{
@@ -73,10 +80,25 @@ struct editorConfig{
 	char *filename;
 	char statusmsg[80];
 	time_t statusmsg_time;
+	struct editorSyntax *syntax;
 	struct termios orig_termios;
 };
 
 struct editorConfig E;
+
+/*** filetypes ***/
+
+char *C_HL_extensions[] = { ".c", ".h", ".cpp", NULL };
+
+struct editorSyntax HLDB[] = {
+	{
+		"c",
+		C_HL_extensions,
+		HL_HIGHLIGHT_NUMBERS
+	},
+};
+
+#define HLDB_ENTRIES (sizeof(HLDB) / sizeof(HLDB[0]))
 
 /*** terminal ***/
 
@@ -89,6 +111,8 @@ int getWindowSize(int*, int*);
 
 /*** syntax ***/
 
+void editorSelectSyntaxHighlight();
+int editorSyntaxToColor(int);
 void editorUpdateSyntax();
 int isSeparator(int);
 
