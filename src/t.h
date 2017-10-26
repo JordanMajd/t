@@ -87,6 +87,11 @@ void enableRawMode();
 int getCursorPosition(int*, int*);
 int getWindowSize(int*, int*);
 
+/*** syntax ***/
+
+void editorUpdateSyntax();
+int isSeparator(int);
+
 /*** row ops ***/
 
 void editorDelRow(int);
