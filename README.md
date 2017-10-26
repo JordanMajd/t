@@ -29,19 +29,9 @@ CTRL-F: Find
 
 - Open, Save, Save As
 - Incremental Search
-- Syntax Highlighting(WIP)
+- Syntax Highlighting
 
 ## Roadmap
-
-Core Functionality:
-
-1. (Done) Project setup
-1. (Done) Raw mode
-1. (DONE) Input & output
-1. (DONE) Text viewer
-1. (DONE) Text editor
-1. (DONE) Search
-1. (20%) Syntax highlighting
 
 Stretch Goals:
 
