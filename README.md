@@ -1,4 +1,4 @@
-# T ![Version 1.0.0](https://img.shields.io/badge/Version-0.0.3-green.svg)
+# T ![Version 1.0.0](https://img.shields.io/badge/Version-1.0.0-green.svg)
 
 [![BSD 2-clause licensed](https://img.shields.io/badge/license-BSD-blue.svg)](/LICENSE)
 ![Built with love](https://img.shields.io/badge/built%20with-%E2%9D%A4-FF8080.svg)
