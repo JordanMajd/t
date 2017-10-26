@@ -159,6 +159,8 @@ void editorUpdateSyntax(erow *row) {
 
 	if (E.syntax == NULL) return;
 
+	char **keywords =E.syntax->keywords;
+
 	char *scs = E.syntax->singleline_comment_start;
 	int scs_len = scs ? strlen(scs) : 0;
 
@@ -210,6 +212,25 @@ void editorUpdateSyntax(erow *row) {
 			}
 		}
 
+		if(prev_sep) {
+			int j;
+			for(j = 0; keywords[j]; j++){
+				int klen = strlen(keywords[j]);
+				int kw2 = keywords[j][klen - 1] == '|';
+				if(kw2) klen--;
+
+				if(!strncmp(&row->render[i], keywords[j], klen) && isSeparator(row->render[i + klen])) {
+					memset(&row->hl[i], kw2 ? HL_KEYWORD2 : HL_KEYWORD1, klen);
+					i += klen;
+					break;
+				}
+			}
+			if(keywords[j] != NULL) {
+				prev_sep = 0;
+				continue;
+			}
+		}
+
 		prev_sep = isSeparator(c);
 		i++;
 	}
@@ -251,6 +272,8 @@ void editorSelectSyntaxHighlight() {
 int editorSyntaxToColor(int hl) {
 	switch(hl){
 		case HL_COMMENT: return 36;
+		case HL_KEYWORD1: return 33;
+		case HL_KEYWORD2: return 32;
 		case HL_STRING: return 35;
 		case HL_NUMBER: return 31;
 		case HL_MATCH: return 34;
